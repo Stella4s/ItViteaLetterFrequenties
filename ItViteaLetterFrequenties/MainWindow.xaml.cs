@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.IO;
 
 namespace ItViteaLetterFrequenties
 {
@@ -23,6 +25,15 @@ namespace ItViteaLetterFrequenties
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Btn_OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (openFileDialog.ShowDialog() == true)
+                BoxTxtInput.Text = File.ReadAllText(openFileDialog.FileName);
         }
     }
 }
