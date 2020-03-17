@@ -19,7 +19,7 @@ namespace ItViteaLetterFrequenties.Viewmodel
 
         public IList<LetterInfo> LetterList { get; set; }
 
-        public ICommand NewCommand { private set; get; }
+        public ICommand ButtonCommand { get; private set; }
 
 
         public void FillLetterList(string str)

@@ -14,19 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.IO;
-using ItViteaLetterFrequenties.Viewmodel;
 
-namespace ItViteaLetterFrequenties
+namespace ItViteaLetterFrequenties.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for FrequencyView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FrequencyView : UserControl
     {
-        public MainWindow()
+        public FrequencyView()
         {
             InitializeComponent();
-            this.DataContext = new VMLetterInfo();
         }
 
         private void Btn_OpenFile_Click(object sender, RoutedEventArgs e)
