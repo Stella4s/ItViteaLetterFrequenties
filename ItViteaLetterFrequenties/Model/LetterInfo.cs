@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace ItViteaLetterFrequenties.Model
 {
-    class LetterInfo : INotifyPropertyChanged
+    public class LetterInfo : INotifyPropertyChanged
     {
         private Char _Letter;
         private int _Count;

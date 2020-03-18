@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ItViteaLetterFrequenties"
         xmlns:Viewmodel="clr-namespace:ItViteaLetterFrequenties.Viewmodel" x:Class="ItViteaLetterFrequenties.MainWindow"
+        xmlns:View="clr-namespace:ItViteaLetterFrequenties.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="600">
-    <Window.DataContext>
+    
+   <!-- <Window.DataContext>
         <Viewmodel:VMLetterInfo/>
     </Window.DataContext>
 
@@ -38,5 +40,9 @@
             <Button Content="Get Frequency" Padding="5,2" />
         </StackPanel>
 
+    </Grid>-->
+    <Grid>
+        <View:FrequencyView/>
     </Grid>
+    
 </Window>

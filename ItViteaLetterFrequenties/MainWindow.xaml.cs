@@ -26,9 +26,9 @@ namespace ItViteaLetterFrequenties
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new VMLetterInfo();
+            //this.DataContext = new VMLetterInfo();
         }
-
+        /*
         private void Btn_OpenFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -36,6 +36,6 @@ namespace ItViteaLetterFrequenties
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (openFileDialog.ShowDialog() == true)
                 BoxTxtInput.Text = File.ReadAllText(openFileDialog.FileName);
-        }
+        }*/
     }
 }

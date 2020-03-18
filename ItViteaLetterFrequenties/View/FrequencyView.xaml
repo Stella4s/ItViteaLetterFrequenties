@@ -22,12 +22,12 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="BoxTxtInput" Margin="5"/>
-        <ListView x:Name="ListFrequency" Grid.Row="1" >
+        <TextBox x:Name="BoxTxtInput" Margin="5" Text="{Binding TextInput, Mode=TwoWay}"/>
+        <ListView x:Name="ListFrequency" Grid.Row="1" ItemsSource="{Binding LetterList}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Letter" DisplayMemberBinding="{Binding Letter, Mode=TwoWay}"/>
-                    <GridViewColumn Header="Count" DisplayMemberBinding="{Binding Count, Mode=TwoWay}"/>
+                    <GridViewColumn Header="Letter" DisplayMemberBinding="{Binding Letter}"/>
+                    <GridViewColumn Header="Count" DisplayMemberBinding="{Binding Count}"/>
                     <GridViewColumn Header="Frequency"/>
                 </GridView>
             </ListView.View>
@@ -35,7 +35,8 @@
         </ListView>
         <StackPanel Grid.Column="1" Margin="5">
             <Button Content="Open File" Padding="5,2" Click="Btn_OpenFile_Click"/>
-            <Button Content="Get Frequency" Padding="5,2" />
+            <Button Content="Get Frequency" Padding="5,2" Command="{Binding FillListCommand}"/>
+            <Button Content="Get Text" Padding="5,2" />
         </StackPanel>
 
     </Grid>
