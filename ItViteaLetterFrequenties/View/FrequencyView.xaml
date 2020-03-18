@@ -24,6 +24,11 @@
         </Grid.RowDefinitions>
         <TextBox x:Name="BoxTxtInput" Margin="5" Text="{Binding TextInput, Mode=TwoWay}"/>
         <ListView x:Name="ListFrequency" Grid.Row="1" ItemsSource="{Binding LetterList}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Letter" DisplayMemberBinding="{Binding Letter}"/>
