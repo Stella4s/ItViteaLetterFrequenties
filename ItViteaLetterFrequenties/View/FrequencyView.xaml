@@ -36,7 +36,7 @@
         <StackPanel Grid.Column="1" Margin="5">
             <Button Content="Open File" Padding="5,2" Click="Btn_OpenFile_Click"/>
             <Button Content="Get Frequency" Padding="5,2" Command="{Binding FillListCommand}"/>
-            <Button Content="Get Text" Padding="5,2" />
+            <Button Content="Change Letter" Padding="5,2" Command="{Binding UpdateListItem}"/>
         </StackPanel>
 
     </Grid>

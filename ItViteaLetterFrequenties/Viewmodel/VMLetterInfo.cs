@@ -12,6 +12,7 @@ namespace ItViteaLetterFrequenties.Viewmodel
     public class VMLetterInfo : INotifyPropertyChanged
     {
         private string _TextInput;
+        private IList<LetterInfo> _LetterList;
         public VMLetterInfo()
         {
             LetterList = new List<LetterInfo>
@@ -22,7 +23,15 @@ namespace ItViteaLetterFrequenties.Viewmodel
             };
         }
 
-        public IList<LetterInfo> LetterList { get; set; }
+        public IList<LetterInfo> LetterList
+        {
+            get { return _LetterList; }
+            set
+            {
+                _LetterList = value;
+                OnPropertyChanged("LetterList");
+            }
+        }
 
         public string TextInput
         {
@@ -43,9 +52,22 @@ namespace ItViteaLetterFrequenties.Viewmodel
                 return new RelayCommand(GetList);
             }
         }
+        public ICommand UpdateListItem
+        {
+            get
+            {
+                return new RelayCommand(ChangeListItem);
+            }
+        }
 
         #region Methods
-
+        /// <summary>
+        /// Hard coded mostly for testing if list will update when item is changed.
+        /// </summary>
+        public void ChangeListItem()
+        {
+            LetterList[1].Letter = 'p';
+        }
 
         public void GetList()
         {
@@ -61,6 +83,7 @@ namespace ItViteaLetterFrequenties.Viewmodel
                     .Select(g => new { Letter = g.Key, Count = g.Count() })
                     .OrderBy(c => c.Letter).ToList();
 
+            LetterList = new List<LetterInfo>();
             foreach (var item in query)
             {
                 LetterList.Add(new LetterInfo { Letter = item.Letter, Count = item.Count });
