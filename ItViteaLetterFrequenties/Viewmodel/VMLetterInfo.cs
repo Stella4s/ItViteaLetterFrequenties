@@ -12,18 +12,13 @@ namespace ItViteaLetterFrequenties.Viewmodel
     public class VMLetterInfo : INotifyPropertyChanged
     {
         private string _TextInput;
-        private IList<LetterInfo> _LetterList;
+        private LetterInfoList _LetterList;
         public VMLetterInfo()
         {
-            LetterList = new List<LetterInfo>
-            {
-                new LetterInfo{Letter = 'q', Count = 5},
-                new LetterInfo{Letter = 'z', Count = 2},
-                new LetterInfo{Letter = 'w', Count = 9}
-            };
+            LetterList = new LetterInfoList();
         }
 
-        public IList<LetterInfo> LetterList
+        public LetterInfoList LetterList
         {
             get { return _LetterList; }
             set
@@ -72,12 +67,12 @@ namespace ItViteaLetterFrequenties.Viewmodel
         public void GetList()
         {
             if (TextInput != null)
-                FillLetterList(TextInput);
+                LetterList.FillLetterList(TextInput);
             else
                 TextInput = "Error.";
         }
 
-        public void FillLetterList(string str)
+        /*public void FillLetterList(string str)
         {
             var query = str.ToLower().Replace(" ", "").GroupBy(c => c)
                     .Select(g => new { Letter = g.Key, Count = g.Count() })
@@ -88,7 +83,7 @@ namespace ItViteaLetterFrequenties.Viewmodel
             {
                 LetterList.Add(new LetterInfo { Letter = item.Letter, Count = item.Count });
             }
-        }
+        }*/
         #endregion
 
         #region INotifyPropertyChanged Members  

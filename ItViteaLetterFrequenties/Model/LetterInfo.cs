@@ -10,15 +10,14 @@ namespace ItViteaLetterFrequenties.Model
     public class LetterInfo : INotifyPropertyChanged
     {
         private Char _Letter;
-        private int _Count;
-
-        public Char Letter
+        private int _Count, _Frequency;
+        public int Frequency
         {
-            get { return _Letter; }
+            get { return _Frequency; ; }
             set
             {
-                _Letter = value;
-                OnPropertyChanged("Letter");
+                _Frequency = value;
+                OnPropertyChanged("Frequency");
             }
         }
         public int Count
@@ -30,6 +29,16 @@ namespace ItViteaLetterFrequenties.Model
                 OnPropertyChanged("Count");
             }
         }
+        public Char Letter
+        {
+            get { return _Letter; }
+            set
+            {
+                _Letter = value;
+                OnPropertyChanged("Letter");
+            }
+        }
+  
 
         #region INotifyPropertyChanged Members  
         public event PropertyChangedEventHandler PropertyChanged;
