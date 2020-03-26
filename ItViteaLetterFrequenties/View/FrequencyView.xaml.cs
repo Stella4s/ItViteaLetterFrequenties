@@ -72,5 +72,21 @@ namespace ItViteaLetterFrequenties.View
                 DataGrd1.Columns.Add(dataGridColumn);
             }
         }
+
+        private void DataGrd1_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            // Replace the DueDate column with a custom template column.
+            if (e.PropertyName == "Frequency")
+            {
+                // Create a new template column.
+                DataGridTemplateColumn templateColumn = new DataGridTemplateColumn();
+                templateColumn.CellTemplate = (DataTemplate)Resources["FrequencyCellTemplate"];
+                //templateColumn.CellEditingTemplate = (DataTemplate)Resources["dueDateCellEditingTemplate"];
+                templateColumn.SortMemberPath = "Frequency";
+
+                // Replace the auto-generated column with the templateColumn.
+                e.Column = templateColumn;
+            }
+        }
     }
 }

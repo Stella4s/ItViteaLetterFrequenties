@@ -18,7 +18,6 @@ namespace ItViteaLetterFrequenties
         }
 
         #region Methods
-
         public void FillLetterList(string str)
         {
             var query = str.ToLower().Replace(" ", "").GroupBy(c => c)

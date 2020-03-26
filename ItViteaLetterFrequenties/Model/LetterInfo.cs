@@ -10,8 +10,9 @@ namespace ItViteaLetterFrequenties.Model
     public class LetterInfo : INotifyPropertyChanged
     {
         private Char _Letter;
-        private int _Count, _Frequency;
-        public int Frequency
+        private int _Count;
+        private double _Frequency;
+        public double Frequency
         {
             get { return _Frequency; ; }
             set

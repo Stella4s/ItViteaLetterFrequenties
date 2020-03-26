@@ -67,9 +67,21 @@ namespace ItViteaLetterFrequenties.Viewmodel
         public void GetList()
         {
             if (TextInput != null)
+            {
                 LetterList.FillLetterList(TextInput);
+                SetFrequencyList();
+            }
             else
                 TextInput = "Error.";
+        }
+        public void SetFrequencyList()
+        {
+            double dblSum = LetterList.Sum(ltrList => ltrList.Count);
+
+            foreach (var item in LetterList)
+            {
+                item.Frequency = (item.Count / dblSum);
+            }
         }
 
         /*public void FillLetterList(string str)
