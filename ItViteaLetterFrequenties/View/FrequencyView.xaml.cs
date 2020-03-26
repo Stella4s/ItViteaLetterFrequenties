@@ -50,11 +50,13 @@ namespace ItViteaLetterFrequenties.View
                     style.Setters.Add(new Setter(TextBlock.MarginProperty, new Thickness(0, 2, 0, 2)));
                     style.Setters.Add(new Setter(TextBlock.LayoutTransformProperty, transformGroup));
                     style.Setters.Add(new Setter(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Center));
+                    style.Setters.Add(new Setter(TextBox.VerticalAlignmentProperty, VerticalAlignment.Center));
 
                     Style editingStyle = new Style(dataGridTextColumn.EditingElementStyle.TargetType, dataGridTextColumn.EditingElementStyle.BasedOn);
                     editingStyle.Setters.Add(new Setter(TextBox.MarginProperty, new Thickness(0, 2, 0, 2)));
                     editingStyle.Setters.Add(new Setter(TextBox.LayoutTransformProperty, transformGroup));
                     editingStyle.Setters.Add(new Setter(TextBox.HorizontalAlignmentProperty, HorizontalAlignment.Center));
+                    editingStyle.Setters.Add(new Setter(TextBox.VerticalAlignmentProperty, VerticalAlignment.Center));
 
                     dataGridTextColumn.ElementStyle = style;
                     dataGridTextColumn.EditingElementStyle = editingStyle;
@@ -75,7 +77,7 @@ namespace ItViteaLetterFrequenties.View
 
         private void DataGrd1_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            // Replace the DueDate column with a custom template column.
+            // Replace the Frequency column with a custom template column.
             if (e.PropertyName == "Frequency")
             {
                 // Create a new template column.

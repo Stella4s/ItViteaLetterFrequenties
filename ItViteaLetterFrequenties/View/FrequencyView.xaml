@@ -12,7 +12,7 @@
 
         <DataTemplate x:Key="FrequencyCellTemplate">
             <TextBlock Text="{Binding Frequency, StringFormat=P}" 
-                       Margin="0,2" HorizontalAlignment="Center">
+                       Margin="0,3" HorizontalAlignment="Center">
                 <TextBlock.LayoutTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -52,6 +52,8 @@
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="HorizontalAlignment" Value="Left"/>
                     <Setter Property="Padding" Value="5"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="Medium"/>
                 </Style>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="IsHitTestVisible" Value="False"/>
@@ -82,9 +84,7 @@
                 </DataGrid.LayoutTransform>
                 <DataGrid.CellStyle>
                     <Style TargetType="{x:Type DataGridCell}">
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="Padding" Value="25"/>
+                        <Setter Property="FontSize" Value="14"/>
                     </Style>
                 </DataGrid.CellStyle>
             </DataGrid>
