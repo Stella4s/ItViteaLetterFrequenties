@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ItViteaLetterFrequenties.View"
              xmlns:vm ="clr-namespace:ItViteaLetterFrequenties.Viewmodel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
     <UserControl.Resources>
         <vm:VMLetterInfo x:Key="letterinfoVM"/>
 
@@ -23,7 +23,40 @@
                 </TextBlock.LayoutTransform>
             </TextBlock>
         </DataTemplate>
-      
+
+        <ControlTemplate x:Key="ToggleButtonMenuTemplate" TargetType="{x:Type ToggleButton}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                    Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" 
+                                  ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" 
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="DarkGray"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="Black"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
     </UserControl.Resources>
 
     <Grid Margin="5" Background="WhiteSmoke" DataContext="{Binding Source={StaticResource letterinfoVM}}">
@@ -33,20 +66,43 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBox x:Name="BoxTxtInput" Margin="5" Text="{Binding TextInput, Mode=TwoWay}"/>
 
-        <!--<ListView x:Name="ListFrequency" Grid.Row="1" ItemsSource="{Binding LetterList}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Letter" DisplayMemberBinding="{Binding Letter}"/>
-                    <GridViewColumn Header="Count" DisplayMemberBinding="{Binding Count}"/>
-                    <GridViewColumn Header="Frequency"/>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
-        <Grid x:Name="GridH" Grid.Row="1" Grid.ColumnSpan="2">
+        <Grid Margin="2" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="File:"  BorderBrush="Gray" BorderThickness="1"/>
+               <!-- <Label x:Name="InfoLabel" Content="{Binding InfoLabel}" 
+                       BorderBrush="Gray" BorderThickness="1" Background="White" Grid.Column="1"/>-->
+                <TextBox x:Name="InfoBox" Text="{Binding InfoLabel}" IsReadOnly="True" 
+                       BorderBrush="Gray" BorderThickness="1" Background="White" Grid.Column="1" VerticalContentAlignment="Center"/>
+
+            </Grid>
+            <Button Content="Add Alphabet" Grid.Column="2"/>
+            <Button Content="Hide Special Characters" Grid.Column="3"/>
+            <!--<Button Content="Options" Grid.Column="4"/>-->
+            <ToggleButton Content="Hide Special Characters" Grid.Column="4" 
+                          Template="{StaticResource ToggleButtonMenuTemplate}" 
+                          Command="{Binding ToggleCharactersCommand}" 
+                          IsChecked="{Binding IsChecked1}"/>
+        </Grid>
+
+
+        <Grid x:Name="GridH" Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.Resources>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -89,24 +145,11 @@
                 </DataGrid.CellStyle>
             </DataGrid>
         </Grid>
-        <!--<Grid x:Name="ListFrequency" Grid.Row="1" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions >
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <DataGridRowHeader Content="Frequency"/>
-            <DataGridRowHeader Content="Count" Grid.Row="1"/>
-            <DataGridRowHeader Content="Letter" Grid.Row="2"/>
-        </Grid>-->
 
-        <StackPanel Grid.Column="1" Margin="5">
-            <Button Content="Open File" Padding="5,2" Click="Btn_OpenFile_Click"/>
-            <Button Content="Get Frequency" Padding="5,2" Command="{Binding FillListCommand}"/>
+        <StackPanel Grid.Column="1" Margin="5" Grid.RowSpan="2">
+            <Button Content="Open File"     Padding="5,2" Command="{Binding OpenFileCommand}" ToolTip="Opens text in textdisplay."/>
+            <Button Content="Load File"     Padding="5,2" Command="{Binding LoadFileCommand}" ToolTip="Directly loads file into frequency grid."/>
+            <Button Content="Get Frequency" Padding="5,2" Command="{Binding GetListCommand}"/>
             <Button Content="Change Letter" Padding="5,2" Command="{Binding UpdateListItem}"/>
         </StackPanel>
 

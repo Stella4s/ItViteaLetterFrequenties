@@ -11,10 +11,16 @@ namespace ItViteaLetterFrequenties.Model
     public class RelayCommand : ICommand
     {
         private Action commandTask;
+        private object v;
 
         public RelayCommand(Action doAction)
         {
             commandTask = doAction;
+        }
+
+        public RelayCommand(object v)
+        {
+            this.v = v;
         }
 
         public bool CanExecute(object parameter)

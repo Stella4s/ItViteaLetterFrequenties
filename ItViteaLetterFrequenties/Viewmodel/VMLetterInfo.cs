@@ -6,18 +6,21 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ComponentModel;
 using ItViteaLetterFrequenties.Model;
+using Microsoft.Win32;
+using System.IO;
 
 namespace ItViteaLetterFrequenties.Viewmodel
 {
     public class VMLetterInfo : INotifyPropertyChanged
     {
-        private string _TextInput;
+        private string _TextInput, _InfoLabel;
         private LetterInfoList _LetterList;
+        private bool _IsChecked1;
         public VMLetterInfo()
         {
             LetterList = new LetterInfoList();
         }
-
+        #region Public Properties
         public LetterInfoList LetterList
         {
             get { return _LetterList; }
@@ -37,14 +40,32 @@ namespace ItViteaLetterFrequenties.Viewmodel
                 OnPropertyChanged("TextInput");
             }
         }
+        public string InfoLabel
+        {
+            get { return _InfoLabel; }
+            set
+            {
+                _InfoLabel = value;
+                OnPropertyChanged("InfoLabel");
+            }
+        }
+        public bool IsChecked1
+        {
+            get { return _IsChecked1; }
+            set
+            {
+                _IsChecked1 = value;
+                OnPropertyChanged("IsChecked1");
+            }
+        }
+        #endregion
 
-        // public ICommand ButtonCommand { get; private set; }
-
-        public ICommand FillListCommand
+        #region Commands
+        public ICommand GetListCommand
         {
             get
             {
-                return new RelayCommand(GetList);
+                return new RelayCommand(SetList);
             }
         }
         public ICommand UpdateListItem
@@ -54,6 +75,28 @@ namespace ItViteaLetterFrequenties.Viewmodel
                 return new RelayCommand(ChangeListItem);
             }
         }
+        public ICommand OpenFileCommand
+        {
+            get
+            {
+                return new RelayCommand(OpenFile);
+            }
+        }
+        public ICommand LoadFileCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadFile);
+            }
+        }
+        public ICommand ToggleCharactersCommand
+        {
+            get
+            {
+                return new RelayCommand(ToggleCharacters);
+            }
+        }
+        #endregion
 
         #region Methods
         /// <summary>
@@ -63,12 +106,15 @@ namespace ItViteaLetterFrequenties.Viewmodel
         {
             LetterList[1].Letter = 'p';
         }
-
-        public void GetList()
+        public void SetList()
         {
-            if (TextInput != null)
+            MakeList(TextInput);
+        }
+        public void MakeList(string str)
+        {
+            if (str != null)
             {
-                LetterList.FillLetterList(TextInput);
+                LetterList.FillLetterList(str);
                 SetFrequencyList();
             }
             else
@@ -83,19 +129,43 @@ namespace ItViteaLetterFrequenties.Viewmodel
                 item.Frequency = (item.Count / dblSum);
             }
         }
-
-        /*public void FillLetterList(string str)
+        private void OpenFile()
         {
-            var query = str.ToLower().Replace(" ", "").GroupBy(c => c)
-                    .Select(g => new { Letter = g.Key, Count = g.Count() })
-                    .OrderBy(c => c.Letter).ToList();
-
-            LetterList = new List<LetterInfo>();
-            foreach (var item in query)
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (openFileDialog.ShowDialog() == true)
+                TextInput = File.ReadAllText(openFileDialog.FileName);
+        }
+        private void LoadFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (openFileDialog.ShowDialog() == true)
             {
-                LetterList.Add(new LetterInfo { Letter = item.Letter, Count = item.Count });
+                MakeList(File.ReadAllText(openFileDialog.FileName));
+                InfoLabel = openFileDialog.SafeFileName.ToString();
             }
-        }*/
+        }
+        private void ToggleCharacters()
+        {
+            if(IsChecked1)
+            {
+                InfoLabel = "On";
+            }
+            else
+            {
+                InfoLabel = "Off";
+            }
+        }
+        private void GridHideRows()
+        {
+            foreach (LetterInfo ltrInfos in LetterList)
+            {
+                
+            }
+        }
         #endregion
 
         #region INotifyPropertyChanged Members  
