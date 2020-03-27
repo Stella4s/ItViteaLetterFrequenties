@@ -8,19 +8,31 @@ using System.ComponentModel;
 using ItViteaLetterFrequenties.Model;
 using Microsoft.Win32;
 using System.IO;
+using System.Collections.ObjectModel;
+using System.Windows.Data;
 
 namespace ItViteaLetterFrequenties.Viewmodel
 {
     public class VMLetterInfo : INotifyPropertyChanged
     {
+        #region privateproperties
         private string _TextInput, _InfoLabel;
         private LetterInfoList _LetterList;
         private bool _IsChecked1;
+        private bool LetterListFilter(object item)
+        {
+            LetterInfo letterI = item as LetterInfo;
+            return letterI.IsLetter == true;
+        }
+        #endregion
         public VMLetterInfo()
         {
             LetterList = new LetterInfoList();
+            LetterListCollectionView = CollectionViewSource.GetDefaultView(LetterList);
+            
         }
         #region Public Properties
+        public ICollectionView LetterListCollectionView { get; }
         public LetterInfoList LetterList
         {
             get { return _LetterList; }
@@ -28,9 +40,9 @@ namespace ItViteaLetterFrequenties.Viewmodel
             {
                 _LetterList = value;
                 OnPropertyChanged("LetterList");
+                LetterListCollectionView.Refresh();
             }
         }
-
         public string TextInput
         {
             get { return _TextInput; }
@@ -56,6 +68,7 @@ namespace ItViteaLetterFrequenties.Viewmodel
             {
                 _IsChecked1 = value;
                 OnPropertyChanged("IsChecked1");
+                LetterListCollectionView.Refresh();
             }
         }
         #endregion
@@ -105,6 +118,7 @@ namespace ItViteaLetterFrequenties.Viewmodel
         public void ChangeListItem()
         {
             LetterList[1].Letter = 'p';
+            LetterListCollectionView.Refresh();
         }
         public void SetList()
         {
@@ -153,18 +167,13 @@ namespace ItViteaLetterFrequenties.Viewmodel
             if(IsChecked1)
             {
                 InfoLabel = "On";
+                LetterListCollectionView.Filter = LetterListFilter;
             }
             else
             {
                 InfoLabel = "Off";
             }
-        }
-        private void GridHideRows()
-        {
-            foreach (LetterInfo ltrInfos in LetterList)
-            {
-                
-            }
+            LetterListCollectionView.Refresh();
         }
         #endregion
 

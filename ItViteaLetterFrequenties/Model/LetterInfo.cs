@@ -12,6 +12,7 @@ namespace ItViteaLetterFrequenties.Model
         private Char _Letter;
         private int _Count;
         private double _Frequency;
+        private bool _IsLetter;
         public double Frequency
         {
             get { return _Frequency; ; }
@@ -39,7 +40,16 @@ namespace ItViteaLetterFrequenties.Model
                 OnPropertyChanged("Letter");
             }
         }
-  
+        public bool IsLetter
+        {
+            get
+            {
+                if (Char.IsLetter(_Letter))
+                    return true;
+                else
+                    return false;
+            }
+        }
 
         #region INotifyPropertyChanged Members  
         public event PropertyChangedEventHandler PropertyChanged;

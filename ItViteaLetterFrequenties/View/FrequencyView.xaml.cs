@@ -79,6 +79,10 @@ namespace ItViteaLetterFrequenties.View
                 // Replace the auto-generated column with the templateColumn.
                 e.Column = templateColumn;
             }
+            if (e.PropertyName == "IsLetter")
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
