@@ -77,7 +77,6 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.ColumnSpan="2">
@@ -86,16 +85,13 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Content="File:"  BorderBrush="Gray" BorderThickness="1"/>
-               <!-- <Label x:Name="InfoLabel" Content="{Binding InfoLabel}" 
-                       BorderBrush="Gray" BorderThickness="1" Background="White" Grid.Column="1"/>-->
-                <TextBox x:Name="InfoBox" Text="{Binding InfoLabel}" IsReadOnly="True" 
+                <TextBox x:Name="InfoBox" Text="{Binding InfoBox}" IsReadOnly="True" 
                        BorderBrush="Gray" BorderThickness="1" Background="White" Grid.Column="1" VerticalContentAlignment="Center"/>
 
             </Grid>
             <Button Content="Add Alphabet" Grid.Column="2"/>
-            <Button Content="Hide Special Characters" Grid.Column="3"/>
             <!--<Button Content="Options" Grid.Column="4"/>-->
-            <ToggleButton Content="Hide Special Characters" Grid.Column="4" 
+            <ToggleButton Content="Only Letters" Grid.Column="3" 
                           Template="{StaticResource ToggleButtonMenuTemplate}" 
                           Command="{Binding ToggleCharactersCommand}" 
                           IsChecked="{Binding IsChecked1}"/>
@@ -134,13 +130,6 @@
                           AutoGeneratingColumn="DataGrd1_AutoGeneratingColumn"
                           HeadersVisibility="None" IsReadOnly="True" ColumnWidth="*" SnapsToDevicePixels="True" 
                           HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
-                <DataGrid.Resources>
-                    <!--<BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="Visibility" 
-                                Value="{Binding Path=IsChecked1, Converter={StaticResource booleanToVisibilityConverter}}" />
-                    </Style>-->
-                </DataGrid.Resources>
                 <DataGrid.LayoutTransform>
                     <TransformGroup>
                         <RotateTransform Angle="-90"/>

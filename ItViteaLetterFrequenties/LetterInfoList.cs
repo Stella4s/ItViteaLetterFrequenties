@@ -20,7 +20,7 @@ namespace ItViteaLetterFrequenties
         #region Methods
         public void FillLetterList(string str)
         {
-            var query = str.ToLower().Replace(" ", "").GroupBy(c => c)
+            var query = str.ToLower().GroupBy(c => c)
                     .Select(g => new { Letter = g.Key, Count = g.Count() })
                     .OrderBy(c => c.Letter).ToList();
 

@@ -64,7 +64,6 @@ namespace ItViteaLetterFrequenties.View
                 DataGrd1.Columns.Add(dataGridColumn);
             }
         }
-
         private void DataGrd1_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             // Replace the Frequency column with a custom template column.

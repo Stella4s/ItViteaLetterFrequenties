@@ -16,9 +16,9 @@ namespace ItViteaLetterFrequenties.Viewmodel
     public class VMLetterInfo : INotifyPropertyChanged
     {
         #region privateproperties
-        private string _TextInput, _InfoLabel;
+        private string _TextInput, _InfoBox;
         private LetterInfoList _LetterList;
-        private bool _IsChecked1;
+        private bool _IsChecked1, _IsChecked2;
         private bool LetterListFilter(object item)
         {
             LetterInfo letterI = item as LetterInfo;
@@ -29,7 +29,7 @@ namespace ItViteaLetterFrequenties.Viewmodel
         {
             LetterList = new LetterInfoList();
             LetterListCollectionView = CollectionViewSource.GetDefaultView(LetterList);
-            
+            SetFrequencyList();
         }
         #region Public Properties
         public ICollectionView LetterListCollectionView { get; }
@@ -40,7 +40,6 @@ namespace ItViteaLetterFrequenties.Viewmodel
             {
                 _LetterList = value;
                 OnPropertyChanged("LetterList");
-                LetterListCollectionView.Refresh();
             }
         }
         public string TextInput
@@ -52,12 +51,12 @@ namespace ItViteaLetterFrequenties.Viewmodel
                 OnPropertyChanged("TextInput");
             }
         }
-        public string InfoLabel
+        public string InfoBox
         {
-            get { return _InfoLabel; }
+            get { return _InfoBox; }
             set
             {
-                _InfoLabel = value;
+                _InfoBox = value;
                 OnPropertyChanged("InfoLabel");
             }
         }
@@ -68,7 +67,15 @@ namespace ItViteaLetterFrequenties.Viewmodel
             {
                 _IsChecked1 = value;
                 OnPropertyChanged("IsChecked1");
-                LetterListCollectionView.Refresh();
+            }
+        }
+        public bool IsChecked2
+        {
+            get { return _IsChecked2; }
+            set
+            {
+                _IsChecked2 = value;
+                OnPropertyChanged("IsChecked2");
             }
         }
         #endregion
@@ -118,7 +125,6 @@ namespace ItViteaLetterFrequenties.Viewmodel
         public void ChangeListItem()
         {
             LetterList[1].Letter = 'p';
-            LetterListCollectionView.Refresh();
         }
         public void SetList()
         {
@@ -143,6 +149,18 @@ namespace ItViteaLetterFrequenties.Viewmodel
                 item.Frequency = (item.Count / dblSum);
             }
         }
+        public void SetFrequentcyFilterList()
+        {
+            var filteredList = from LetterInfo item in LetterList
+                               where item.IsLetter == true
+                               select item;
+            double dblSum = filteredList.Sum(ltrList => ltrList.Count);
+
+            foreach (var item in filteredList)
+            {
+                item.Frequency = (item.Count / dblSum);
+            }
+        }
         private void OpenFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -159,21 +177,29 @@ namespace ItViteaLetterFrequenties.Viewmodel
             if (openFileDialog.ShowDialog() == true)
             {
                 MakeList(File.ReadAllText(openFileDialog.FileName));
-                InfoLabel = openFileDialog.SafeFileName.ToString();
+                InfoBox = openFileDialog.SafeFileName.ToString();
             }
         }
         private void ToggleCharacters()
         {
             if(IsChecked1)
             {
-                InfoLabel = "On";
                 LetterListCollectionView.Filter = LetterListFilter;
+                SetFrequentcyFilterList();
             }
             else
             {
-                InfoLabel = "Off";
+                LetterListCollectionView.Filter = null;
+                SetFrequencyList();
             }
             LetterListCollectionView.Refresh();
+        }
+        public void AlphabetList()
+        {
+            string str = "abcdefghijklmnopqrstuvwxyz";
+            var alphaList = str.GroupBy(c => c)
+                .Select(g => new { Letter = g.Key, Count = 0 })
+                .ToList();
         }
         #endregion
 
