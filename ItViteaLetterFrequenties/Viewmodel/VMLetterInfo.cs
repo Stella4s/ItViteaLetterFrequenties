@@ -62,7 +62,7 @@ namespace ItViteaLetterFrequenties.Viewmodel
             set
             {
                 _InfoBox = value;
-                OnPropertyChanged("InfoLabel");
+                OnPropertyChanged("InfoBox");
             }
         }
         public bool IsChecked1
@@ -93,13 +93,6 @@ namespace ItViteaLetterFrequenties.Viewmodel
                 return new RelayCommand(SetList);
             }
         }
-        public ICommand UpdateListItem
-        {
-            get
-            {
-                return new RelayCommand(ChangeListItem);
-            }
-        }
         public ICommand OpenFileCommand
         {
             get
@@ -124,13 +117,6 @@ namespace ItViteaLetterFrequenties.Viewmodel
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Hard coded mostly for testing if list will update when item is changed.
-        /// </summary>
-        public void ChangeListItem()
-        {
-            LetterList[1].Letter = 'p';
-        }
         public void SetList()
         {
             MakeList(TextInput);
@@ -172,7 +158,10 @@ namespace ItViteaLetterFrequenties.Viewmodel
             openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (openFileDialog.ShowDialog() == true)
+            {
                 TextInput = File.ReadAllText(openFileDialog.FileName);
+                InfoBox = openFileDialog.SafeFileName.ToString();
+            }
         }
         private void LoadFile()
         {

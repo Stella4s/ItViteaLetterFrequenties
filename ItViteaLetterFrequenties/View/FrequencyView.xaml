@@ -89,7 +89,6 @@
                        BorderBrush="Gray" BorderThickness="1" Background="White" Grid.Column="1" VerticalContentAlignment="Center"/>
 
             </Grid>
-            <!--<Button Content="Options" Grid.Column="4"/>-->
             <ToggleButton Content="Only Letters" Grid.Column="3" 
                           Template="{StaticResource ToggleButtonMenuTemplate}" 
                           Command="{Binding ToggleCharactersCommand}" 
@@ -143,10 +142,9 @@
         </Grid>
 
         <StackPanel Grid.Column="1" Margin="5" Grid.RowSpan="2">
-            <Button Content="Open File"     Padding="5,2" Command="{Binding OpenFileCommand}" ToolTip="Opens text in textdisplay."/>
+            <Button Content="Open File"     Padding="5,2" Command="{Binding OpenFileCommand}" ToolTip="Opens the file into the textbox."/>
             <Button Content="Load File"     Padding="5,2" Command="{Binding LoadFileCommand}" ToolTip="Directly loads file into frequency grid."/>
-            <Button Content="Get Frequency" Padding="5,2" Command="{Binding GetListCommand}"/>
-            <Button Content="Change Letter" Padding="5,2" Command="{Binding UpdateListItem}"/>
+            <Button Content="Get Frequency" Padding="5,2" Command="{Binding GetListCommand}"  ToolTip="Loads the text from the textbox into the frequency grid."/>
         </StackPanel>
 
     </Grid>
