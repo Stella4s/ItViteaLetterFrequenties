@@ -12,10 +12,6 @@ namespace ItViteaLetterFrequenties
     {
         public LetterInfoList()
         {
-            Add(new LetterInfo { Letter = 'q', Count = 5 });
-            Add(new LetterInfo { Letter = 'z', Count = 2 });
-            Add(new LetterInfo { Letter = 'w', Count = 9 });
-
         }
 
         #region Methods
