@@ -15,6 +15,7 @@ namespace ItViteaLetterFrequenties
             Add(new LetterInfo { Letter = 'q', Count = 5 });
             Add(new LetterInfo { Letter = 'z', Count = 2 });
             Add(new LetterInfo { Letter = 'w', Count = 9 });
+
         }
 
         #region Methods
@@ -23,7 +24,7 @@ namespace ItViteaLetterFrequenties
             var query = str.ToLower().GroupBy(c => c)
                     .Select(g => new { Letter = g.Key, Count = g.Count() })
                     .OrderBy(c => c.Letter).ToList();
-
+           
             Clear();
             foreach (var item in query)
             {

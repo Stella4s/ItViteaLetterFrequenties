@@ -28,11 +28,16 @@ namespace ItViteaLetterFrequenties.Viewmodel
         public VMLetterInfo()
         {
             LetterList = new LetterInfoList();
-            LetterListCollectionView = CollectionViewSource.GetDefaultView(LetterList);
+            LLCollectionView = CollectionViewSource.GetDefaultView(LetterList);
             SetFrequencyList();
+            if (LLCollectionView  != null && LLCollectionView.CanSort == true)
+            {
+                LLCollectionView.SortDescriptions.Clear();
+                LLCollectionView.SortDescriptions.Add(new SortDescription("Letter", ListSortDirection.Ascending));
+            }
         }
         #region Public Properties
-        public ICollectionView LetterListCollectionView { get; }
+        public ICollectionView LLCollectionView { get; }
         public LetterInfoList LetterList
         {
             get { return _LetterList; }
@@ -115,7 +120,7 @@ namespace ItViteaLetterFrequenties.Viewmodel
             {
                 return new RelayCommand(ToggleCharacters);
             }
-        }
+        } 
         #endregion
 
         #region Methods
@@ -184,22 +189,15 @@ namespace ItViteaLetterFrequenties.Viewmodel
         {
             if(IsChecked1)
             {
-                LetterListCollectionView.Filter = LetterListFilter;
+                LLCollectionView.Filter = LetterListFilter;
                 SetFrequentcyFilterList();
             }
             else
             {
-                LetterListCollectionView.Filter = null;
+                LLCollectionView.Filter = null;
                 SetFrequencyList();
             }
-            LetterListCollectionView.Refresh();
-        }
-        public void AlphabetList()
-        {
-            string str = "abcdefghijklmnopqrstuvwxyz";
-            var alphaList = str.GroupBy(c => c)
-                .Select(g => new { Letter = g.Key, Count = 0 })
-                .ToList();
+            LLCollectionView.Refresh();
         }
         #endregion
 
